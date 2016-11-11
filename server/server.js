@@ -29,7 +29,7 @@ if(env === 'development') {
 	})
 
 	app.get('/', (req, res) => {
-	res.sendFile(dirname+ '/Public/index.html')
+	res.sendFile(dirname+ '/client/index.html')
 	});
 }
 
