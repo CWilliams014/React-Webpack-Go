@@ -2,7 +2,7 @@
 //easy to swap out sass and less
 //url-loader?limit=20000
 	//will look at each image, if its under 20kb, it will be inline and turned into base64 encoded data. Bigger ones will be separate request
-//add fonts to test that loads images
+// add fonts to test that loads images
 
 const path = require('path')
 const { resolve } = require('path')
@@ -67,7 +67,7 @@ module.exports = {
 			]
 		},
 		resolve: {
-		extentions: ['', '.js']
+			extentions: ['', '.js']
 	}
 	
 }

@@ -1,1 +1,28 @@
-//your linter config here :)
+//your lint config rules here :) 
+{
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+
+    "extends": "eslint:recommended",
+    
+    "plugins": [
+    "react"
+    ],
+
+    parserOptions: {
+    ecmaFeatures: {
+      es6: true,
+      },
+    },
+
+    "rules": {
+        "no-var": 1,
+        "react/jsx-key": 1,
+        "no-console": 0
+    }
+}
+
