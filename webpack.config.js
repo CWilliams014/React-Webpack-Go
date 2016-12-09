@@ -5,55 +5,69 @@
 //add fonts to test that loads images
 
 const path = require('path')
+const { resolve } = require('path')
 const env = require('./.env');
 const webpack = require('webpack')
 
 module.exports = {
-	devtools: 'eval-source-map',
-	context: path.resolve('client'),
-	entry: [
+
+		context: resolve('client'),
+		entry: [
 		'webpack-hot-middleware/client',
 		path.join(__dirname, '/client/index.js')
-	],
-	output: {
-		path: '/',
-		publicPath: '/',
-	},
+		],
+		output: {
+			path: resolve('dist'),
+			filename: 'bundle.js',
+			publicPath: '/dist/',
+		},
 
-	plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
+		devtool: 'eval',
 
-	module: {
-		loaders: [
-		{
-			test:/\.js$/,
-			include: [
-				path.join(__dirname, 'client'),
-				path.join(__dirname, 'server')
-			],
-			loaders: ['babel']
+		eslint: {
+			configFile: './.eslintrc'
 		},
-		{
-			test: /\.css$/,
-			exclude: /node_modules/,
-			loaders: ['style', 'css', 'autoprefixer']
+
+		plugins: [
+		new webpack.NoErrorsPlugin(),
+		new webpack.HotModuleReplacementPlugin()
+		],
+
+		module: {
+			preLoaders: [
+	      { test: /\.json$/, 
+	      	loader: 'json'
+	      },
+    	],
+			loaders: [
+				{
+					test:/\.js$/,
+					include: [
+						path.join(__dirname, 'client'),
+						path.join(__dirname, 'server'),
+						path.join(__dirname, 'test')
+					],
+					loaders: ['react-hot', 'babel']
+				},
+				{
+					test: /\.css$/,
+					exclude: /node_modules/,
+					loaders: ['style', 'css', 'autoprefixer']
+				},
+				{
+					test:/\.scss$/,
+					exclude:/node-modules/,
+					loaders:['style', 'css', 'sass']
+				},
+				{
+					test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+					loader: 'url-loader?limit=10000',
+					include:[path.join(__dirname, 'Public')]
+				}
+			]
 		},
-		{
-			test:/\.scss$/,
-			exclude:/node-modules/,
-			loaders:['style', 'css', 'sass']
-		},
-		{
-			test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-      loader: 'url-loader?limit=10000',
-      include:[path.join(__dirname, 'Public')]
-		}
-		]
-	},
-	resolve: {
+		resolve: {
 		extentions: ['', '.js']
 	}
+	
 }
